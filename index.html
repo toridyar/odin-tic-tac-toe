@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Toridyar's Tic-Tac-Toe</title>
+  </head>
+  <body>
+    <script>
+      function computerPlay() {
+        let hand = ["Rock", "Paper", "Scissors"];
+        let randNum = Math.floor(Math.random() * (2.9 - 0) + 0);
+        let chosenHand = hand[randNum];
+        return chosenHand;
+      }
+
+      function playRound(playerSelection, computerSelection) {
+        if (playerSelection === computerSelection) {
+          return "tie";
+        } else if (
+          (playerSelection === "Rock" && computerSelection === "Scissors") ||
+          (playerSelection === "Scissors" && computerSelection === "Paper") ||
+          (playerSelection === "Paper" && computerSelection === "Rock")
+        ) {
+          return "player";
+        } else {
+          return "computer";
+        }
+      }
+
+      function game() {
+        let playerWins = 0;
+        let computerWins = 0;
+        for (let i = 0; i < 5; i++) {
+          let playerSelection = prompt("Rock, paper or scissors?");
+          let playerSelectionCapitalized = capitalizeFirstLetter(
+            playerSelection
+          );
+          let computerSelection = computerPlay();
+          let result = playRound(playerSelectionCapitalized, computerSelection);
+          if (result === "player") {
+            playerWins++;
+            console.log(
+              `You win!! ${playerSelectionCapitalized} beats ${computerSelection}`
+            );
+          } else if (result === "computer") {
+            computerWins++;
+            console.log(
+              `You Lose! ${computerSelection} beats ${playerSelectionCapitalized}`
+            );
+          } else {
+            console.log(
+              `Tie. ${playerSelectionCapitalized} equals ${computerSelection}`
+            );
+          }
+        }
+        console.log(getWinner(playerWins, computerWins));
+      }
+
+      function capitalizeFirstLetter(str) {
+        let strSelectionLowercase = str.toLowerCase();
+        let strSelectionCapitalized =
+          strSelectionLowercase[0].toUpperCase() +
+          strSelectionLowercase.slice(1);
+        return strSelectionCapitalized;
+      }
+
+      function getWinner(playerWins, computerWins) {
+        if (playerWins > computerWins) {
+          return `You win ${playerWins} to ${computerWins}!!`;
+        } else if (computerWins > playerWins) {
+          return `You lose ${computerWins} to ${playerWins}`;
+        } else {
+          return `You tied ${computerWins} to ${playerWins}`;
+        }
+      }
+
+      game();
+    </script>
+  </body>
+</html>
